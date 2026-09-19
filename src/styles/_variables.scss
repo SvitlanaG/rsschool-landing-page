@@ -1,0 +1,16 @@
+:root {
+  --page: #f3f7f2;
+  --surface: #ffffff;
+  --ink: #203128;
+  --muted: #5c6b61;
+  --accent: #de6b35;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #152119;
+    --surface: #203128;
+    --ink: #edf5ed;
+    --muted: #b9c8bc;
+  }
+}
