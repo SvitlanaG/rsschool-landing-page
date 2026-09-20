@@ -1,7 +1,157 @@
-.app-shell {
-  width: min(100% - 2rem, 76rem);
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--page) 92%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.site-header__inner,
+.site-footer__inner,
+.page-placeholder {
+  width: min(100% - 3rem, 76rem);
   margin: 0 auto;
-  padding: clamp(4rem, 12vw, 9rem) 0;
+}
+
+.site-header__inner {
+  display: flex;
+  min-height: 5.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: "Trebuchet MS", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.brand__mark {
+  display: grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.35rem;
+}
+
+.site-nav ul,
+.site-tools,
+.theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.site-nav ul {
+  gap: clamp(0.8rem, 1.8vw, 1.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.9rem;
+}
+
+.site-nav a,
+.site-footer a {
+  transition: color 180ms ease;
+}
+
+.site-nav a:hover,
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+.site-nav__catalog {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.site-tools {
+  gap: 0.75rem;
+}
+
+.language-select,
+.theme-toggle,
+.menu-toggle {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.language-select {
+  min-height: 2.35rem;
+  border-radius: 0.5rem;
+  padding: 0 0.45rem;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.theme-toggle {
+  min-height: 2.35rem;
+  gap: 0.35rem;
+  border-radius: 2rem;
+  padding: 0.25rem 0.45rem;
+  cursor: pointer;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.62rem;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.theme-toggle:hover,
+.menu-toggle:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.theme-toggle__track {
+  width: 1.7rem;
+  height: 1rem;
+  border-radius: 1rem;
+  background: var(--surface-muted);
+  padding: 0.15rem;
+}
+
+.theme-toggle__track span {
+  display: block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform 180ms ease;
+}
+
+:root[data-theme="dark"] .theme-toggle__track span {
+  transform: translateX(0.7rem);
+}
+
+.menu-toggle {
+  display: none;
+  width: 2.5rem;
+  height: 2.35rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 1.1rem;
+  height: 2px;
+  margin: 0.2rem auto;
+  background: currentColor;
+}
+
+.page-placeholder {
+  min-height: calc(100vh - 23rem);
+  padding: clamp(5rem, 13vw, 10rem) 0;
 }
 
 .eyebrow {
@@ -21,9 +171,104 @@ h1 {
   line-height: 0.92;
 }
 
-.intro {
-  max-width: 42rem;
+.page-placeholder > p:last-child {
+  max-width: 36rem;
   color: var(--muted);
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   line-height: 1.5;
+}
+
+.site-footer {
+  background: var(--surface-muted);
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(10rem, 0.7fr) auto;
+  gap: 2rem;
+  padding: 3rem 0;
+}
+
+.site-footer p {
+  max-width: 23rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.site-footer h2 {
+  margin: 0 0 0.75rem;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 1rem;
+}
+
+.site-footer div:nth-child(2) a {
+  display: block;
+  margin: 0.45rem 0;
+  color: var(--muted);
+}
+
+.site-footer__rights {
+  align-self: end;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .site-header__inner,
+  .site-footer__inner,
+  .page-placeholder {
+    width: min(100% - 2rem, 76rem);
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-footer__rights {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header__inner {
+    min-height: 4.5rem;
+    gap: 0.5rem;
+  }
+
+  .brand {
+    font-size: 0.85rem;
+  }
+
+  .brand__mark {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+
+  .site-tools {
+    gap: 0.35rem;
+  }
+
+  .theme-toggle {
+    padding: 0.2rem;
+  }
+
+  .theme-toggle > span[aria-hidden="true"] {
+    display: none;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer__rights {
+    grid-column: auto;
+  }
 }
