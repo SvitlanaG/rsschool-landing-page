@@ -12,6 +12,49 @@ const labels = {
   ru: { home: "Главная", exercises: "Упражнения", habits: "Здоровые привычки", about: "О нас", catalog: "Каталог", theme: "Переключить тему", language: "Язык", footer: "Более спокойный и здоровый рабочий день начинается с двухминутного перерыва.", contact: "Контакты", email: "hello@healthatwork.example", rights: "Health at Work. Учебный проект.", eyebrow: "Ваш помощник для перерывов", heroTitle: "Чувствуйте себя лучше к концу рабочего дня.", heroText: "Короткие практичные упражнения для спины, глаз, запястий и концентрации. Для моментов между встречами и задачами.", heroCta: "Посмотреть упражнения", heroNote: "Легкие движения для ежедневного благополучия. Остановитесь, если чувствуете боль." },
 };
 
+const catalogExercises = {
+  en: [
+    ["02 min", "Neck release", "A slow, seated reset for a stiff neck and shoulders."],
+    ["03 min", "Seated twist", "Create gentle movement through your upper back."],
+    ["02 min", "Chair chest opener", "Counter the rounded posture of a long screen session."],
+    ["04 min", "Standing side reach", "Lengthen the sides of your body after sitting still."],
+    ["03 min", "Wall-supported posture", "Reconnect with a tall, relaxed standing position."],
+    ["02 min", "Shoulder circles", "A simple way to invite more ease into your upper body."],
+    ["04 min", "Seated hip reset", "Bring a little movement back to your hips and lower back."],
+    ["03 min", "Calm back stretch", "Finish a focused block with a comfortable release."],
+  ],
+  de: [
+    ["02 Min.", "Nacken lockern", "Eine langsame Pause im Sitzen fur einen steifen Nacken und Schultern."],
+    ["03 Min.", "Drehung im Sitzen", "Bringe sanfte Bewegung in deinen oberen Rucken."],
+    ["02 Min.", "Brustoffner am Stuhl", "Wirke der gerundeten Haltung nach langer Bildschirmzeit entgegen."],
+    ["04 Min.", "Seitliche Streckung im Stehen", "Verlangere die Seiten deines Korpers nach langem Sitzen."],
+    ["03 Min.", "Haltung an der Wand", "Finde zu einer aufrechten, entspannten Haltung zuruck."],
+    ["02 Min.", "Schulterkreisen", "Eine einfache Bewegung fur mehr Leichtigkeit im Oberkorper."],
+    ["04 Min.", "Huftpause im Sitzen", "Gib Huften und unterem Rucken wieder etwas Bewegung."],
+    ["03 Min.", "Ruhige Ruckenstreckung", "Beende einen konzentrierten Arbeitsblock mit angenehmer Entlastung."],
+  ],
+  uk: [
+    ["02 хв", "Розслаблення шиї", "Повільне відновлення сидячи для напруженої шиї та плечей."],
+    ["03 хв", "Скручування сидячи", "Додайте м'якого руху верхній частині спини."],
+    ["02 хв", "Розкриття грудної клітки", "Зменште округлення постави після тривалої роботи за екраном."],
+    ["04 хв", "Бічне витягування стоячи", "Витягніть боки тіла після тривалого сидіння."],
+    ["03 хв", "Постава біля стіни", "Поверніться до високого й розслабленого положення стоячи."],
+    ["02 хв", "Кола плечима", "Простий рух для більшої легкості у верхній частині тіла."],
+    ["04 хв", "Відновлення стегон сидячи", "Поверніть трохи руху стегнам і попереку."],
+    ["03 хв", "Спокійне розтягування спини", "Завершіть зосереджений блок комфортним розслабленням."],
+  ],
+  ru: [
+    ["02 мин", "Расслабление шеи", "Медленное восстановление сидя для напряженной шеи и плеч."],
+    ["03 мин", "Скручивание сидя", "Добавьте мягкое движение верхней части спины."],
+    ["02 мин", "Раскрытие грудной клетки", "Уменьшите округление осанки после долгой работы за экраном."],
+    ["04 мин", "Боковое вытягивание стоя", "Вытяните боковые части тела после долгого сидения."],
+    ["03 мин", "Осанка у стены", "Вернитесь к высокому и расслабленному положению стоя."],
+    ["02 мин", "Круги плечами", "Простое движение для большей легкости в верхней части тела."],
+    ["04 мин", "Восстановление бедер сидя", "Верните немного движения бедрам и пояснице."],
+    ["03 мин", "Спокойная растяжка спины", "Завершите сосредоточенный блок комфортным расслаблением."],
+  ],
+};
+
 Object.assign(labels.en, {
   featuredEyebrow: "Start here", featuredTitle: "Three breaks worth making time for.", featuredText: "Choose a small reset that meets you where your body is today.",
   stretchTime: "02 min", stretchTitle: "Seated shoulder reset", stretchText: "Release upper-body tension without leaving your chair.", eyeTime: "01 min", eyeTitle: "20-second distance gaze", eyeText: "Give focused eyes a brief change of scenery.", wristTime: "03 min", wristTitle: "Wrist and finger flow", wristText: "Ease the small muscles that work alongside your keyboard.",
@@ -44,6 +87,11 @@ Object.assign(labels.en, { howEyebrow: "Keep it simple", howTitle: "A break that
 Object.assign(labels.de, { howEyebrow: "Einfach halten", howTitle: "Eine Pause, die in den echten Arbeitstag passt.", howText: "Keine besondere Ausrustung, keine komplizierte Routine. Nur etwas mehr Achtsamkeit zwischen den Dingen, die du ohnehin tust.", stepOneTitle: "Deinen Reset wahlen", stepOneText: "Finde eine Ubung fur den Teil deines Korpers, der Aufmerksamkeit braucht.", stepTwoTitle: "Dem Tempo folgen", stepTwoText: "Nutze die kurzen Anweisungen und bewege dich nur in einem angenehmen Bereich.", stepThreeTitle: "Bewusst zuruckkehren", stepThreeText: "Nimm wahr, wie du dich fuhlst, und kehre mit einem klareren Kopf zur Arbeit zuruck." });
 Object.assign(labels.uk, { howEyebrow: "Зробіть простіше", howTitle: "Перерва, що вміщується у реальний робочий день.", howText: "Без спеціального обладнання та складних вправ. Лише трохи більше турботи між справами, які ви вже виконуєте.", stepOneTitle: "Оберіть відновлення", stepOneText: "Знайдіть вправу для тієї частини тіла, якій потрібна увага.", stepTwoTitle: "Дотримуйтесь темпу", stepTwoText: "Користуйтеся короткими інструкціями та рухайтеся лише у комфортному діапазоні.", stepThreeTitle: "Поверніться свідомо", stepThreeText: "Зверніть увагу на самопочуття і поверніться до роботи з яснішою думкою." });
 Object.assign(labels.ru, { howEyebrow: "Сделайте проще", howTitle: "Перерыв, который помещается в реальный рабочий день.", howText: "Без специального оборудования и сложных упражнений. Просто чуть больше заботы между делами, которые вы уже выполняете.", stepOneTitle: "Выберите восстановление", stepOneText: "Найдите упражнение для той части тела, которой нужно внимание.", stepTwoTitle: "Следуйте темпу", stepTwoText: "Используйте короткие инструкции и двигайтесь только в комфортном диапазоне.", stepThreeTitle: "Вернитесь осознанно", stepThreeText: "Обратите внимание на самочувствие и вернитесь к работе с более ясной головой." });
+
+Object.assign(labels.en, { catalogEyebrow: "Exercise library", catalogTitle: "Make room for a better workday.", catalogText: "Pick a short, desk-friendly movement that matches what you need right now.", categoryBack: "Back & posture", categoryEyes: "Eyes & focus", categoryHands: "Hands & wrists", showMore: "Show more exercises", exerciseImage: "Desk worker doing a workplace exercise" });
+Object.assign(labels.de, { catalogEyebrow: "Ubungsbibliothek", catalogTitle: "Mach Platz fur einen besseren Arbeitstag.", catalogText: "Wahle eine kurze, schreibtischfreundliche Bewegung, die zu deinem Bedarf passt.", categoryBack: "Rucken & Haltung", categoryEyes: "Augen & Fokus", categoryHands: "Hande & Handgelenke", showMore: "Mehr Ubungen zeigen", exerciseImage: "Buroangestellte Person bei einer Ubung am Arbeitsplatz" });
+Object.assign(labels.uk, { catalogEyebrow: "Бібліотека вправ", catalogTitle: "Знайдіть місце для кращого робочого дня.", catalogText: "Оберіть короткий рух для робочого місця, який відповідає вашим потребам зараз.", categoryBack: "Спина й постава", categoryEyes: "Очі й концентрація", categoryHands: "Руки й зап'ястя", showMore: "Показати більше вправ", exerciseImage: "Офісний працівник виконує вправу на робочому місці" });
+Object.assign(labels.ru, { catalogEyebrow: "Библиотека упражнений", catalogTitle: "Найдите место для лучшего рабочего дня.", catalogText: "Выберите короткое движение для рабочего места, которое отвечает вашим потребностям сейчас.", categoryBack: "Спина и осанка", categoryEyes: "Глаза и концентрация", categoryHands: "Руки и запястья", showMore: "Показать больше упражнений", exerciseImage: "Офисный работник выполняет упражнение на рабочем месте" });
 
 function sharedHeader() {
   return `
@@ -142,9 +190,12 @@ function pageContent() {
       </main>`;
   }
 
-  const title = page === "catalog" ? "Exercise catalog" : "Your workday, with more care";
-  const text = page === "catalog" ? "The exercise categories and cards will be added next." : "The first home-page sections will be added next.";
-  return `<main class="page-placeholder"><p class="eyebrow">Health at Work</p><h1>${title}</h1><p>${text}</p></main>`;
+  if (page === "catalog") {
+    const cards = catalogExercises.en.map(([time, title, text], index) => `<article class="catalog-card${index > 5 ? " catalog-card--extra" : ""}" data-exercise-index="${index}"><img src="${heroImage}" alt="Desk worker doing a workplace exercise" data-alt-label="exerciseImage" /><div><p data-exercise-field="time">${time}</p><h2 data-exercise-field="title">${title}</h2><span data-exercise-field="text">${text}</span></div></article>`).join("");
+    return `<main class="catalog-page"><section class="catalog-hero" aria-labelledby="catalog-title"><p class="eyebrow" data-label="catalogEyebrow">Exercise library</p><h1 id="catalog-title" data-label="catalogTitle">Make room for a better workday.</h1><p data-label="catalogText">Pick a short, desk-friendly movement that matches what you need right now.</p></section><section class="catalog-content" aria-label="Exercise catalog"><div class="category-tabs" role="tablist" aria-label="Exercise categories"><button class="category-tab is-active" type="button" role="tab" aria-selected="true" data-label="categoryBack">Back & posture</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-label="categoryEyes">Eyes & focus</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-label="categoryHands">Hands & wrists</button></div><div class="catalog-grid">${cards}</div><button class="show-more" type="button" data-label="showMore">Show more exercises <span aria-hidden="true">↓</span></button></section></main>`;
+  }
+
+  return `<main class="page-placeholder"><p class="eyebrow">Health at Work</p><h1>Your workday, with more care</h1><p>The first home-page sections will be added next.</p></main>`;
 }
 
 function applyLanguage(language) {
@@ -155,6 +206,16 @@ function applyLanguage(language) {
     if (text) element.textContent = text;
   });
   document.querySelector(".theme-toggle").setAttribute("aria-label", labels[language].theme);
+  document.querySelectorAll("[data-alt-label]").forEach((element) => {
+    const text = labels[language][element.dataset.altLabel];
+    if (text) element.alt = text;
+  });
+  document.querySelectorAll("[data-exercise-index]").forEach((card) => {
+    const [time, title, text] = catalogExercises[language][card.dataset.exerciseIndex];
+    card.querySelector('[data-exercise-field="time"]').textContent = time;
+    card.querySelector('[data-exercise-field="title"]').textContent = title;
+    card.querySelector('[data-exercise-field="text"]').textContent = text;
+  });
 }
 
 function applyTheme(theme) {
