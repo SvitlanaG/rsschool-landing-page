@@ -59,7 +59,7 @@ function pageContent() {
   if (page === "home") {
     return `
       <main>
-        <section class="hero" id="exercises" aria-labelledby="hero-title">
+        <section class="hero" aria-labelledby="hero-title">
           <div class="hero__content">
             <p class="eyebrow" data-label="eyebrow">Your desk-break companion</p>
             <h1 id="hero-title" data-label="heroTitle">Feel better by the end of your workday.</h1>
@@ -68,6 +68,22 @@ function pageContent() {
             <p class="hero__note"><span aria-hidden="true">i</span><span data-label="heroNote">Gentle movement for everyday wellbeing. Stop if anything hurts.</span></p>
           </div>
           <div class="hero__visual"><img src="${heroImage}" alt="Developer taking a short break at a desk" /></div>
+        </section>
+        <section class="featured" id="exercises" aria-labelledby="featured-title">
+          <div class="section-heading">
+            <div><p class="eyebrow">Start here</p><h2 id="featured-title">Three breaks worth making time for.</h2></div>
+            <p>Choose a small reset that meets you where your body is today.</p>
+          </div>
+          <div class="exercise-carousel" aria-label="Featured exercises">
+            <button class="carousel-button" type="button" aria-label="Previous exercise" disabled>←</button>
+            <div class="exercise-carousel__track">
+              <article class="exercise-card"><img src="${heroImage}" alt="Desk worker stretching their shoulders" /><div><p>02 min</p><h3>Seated shoulder reset</h3><span>Release upper-body tension without leaving your chair.</span></div></article>
+              <article class="exercise-card"><img src="${heroImage}" alt="Desk worker taking an eye break" /><div><p>01 min</p><h3>20-second distance gaze</h3><span>Give focused eyes a brief change of scenery.</span></div></article>
+              <article class="exercise-card"><img src="${heroImage}" alt="Desk worker resting their hands" /><div><p>03 min</p><h3>Wrist and finger flow</h3><span>Ease the small muscles that work alongside your keyboard.</span></div></article>
+            </div>
+            <button class="carousel-button" type="button" aria-label="Next exercise">→</button>
+          </div>
+          <div class="carousel-progress" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
         </section>
       </main>`;
   }

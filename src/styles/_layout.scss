@@ -264,6 +264,28 @@ h1 {
   object-position: center;
 }
 
+.featured { width: min(100% - 3rem, 76rem); margin: 0 auto; padding: clamp(4.5rem, 9vw, 8rem) 0; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2.5rem; }
+.section-heading h2 { max-width: 14ch; margin: 0; font-size: clamp(2rem, 4.3vw, 4.25rem); line-height: 0.98; }
+.section-heading > p { max-width: 23rem; margin: 0 0 0.25rem; color: var(--muted); line-height: 1.5; }
+.exercise-carousel { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; }
+.exercise-carousel__track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.exercise-card { overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); box-shadow: 0 0.8rem 2rem var(--shadow); transition: transform 180ms ease, box-shadow 180ms ease; }
+.exercise-card:hover { transform: translateY(-0.35rem); box-shadow: 0 1.2rem 2.3rem var(--shadow); }
+.exercise-card img { display: block; width: 100%; aspect-ratio: 1.2 / 1; object-fit: cover; }
+.exercise-card:nth-child(2) img { object-position: 65% center; }
+.exercise-card:nth-child(3) img { object-position: 35% center; }
+.exercise-card > div { padding: 1.25rem; }
+.exercise-card p { margin: 0 0 0.8rem; color: var(--accent); font-family: "Trebuchet MS", sans-serif; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.exercise-card h3 { margin: 0; font-size: 1.25rem; }
+.exercise-card span { display: block; margin-top: 0.65rem; color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
+.carousel-button { display: grid; width: 2.8rem; height: 2.8rem; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--ink); cursor: pointer; font-size: 1.2rem; transition: background-color 180ms ease, color 180ms ease, transform 180ms ease; }
+.carousel-button:not(:disabled):hover { transform: scale(1.06); background: var(--accent); color: #fff; }
+.carousel-button:disabled { cursor: not-allowed; opacity: 0.45; }
+.carousel-progress { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+.carousel-progress span { width: 2.5rem; height: 0.2rem; border-radius: 2rem; background: var(--line); }
+.carousel-progress .is-active { background: var(--accent); }
+
 .site-footer {
   background: var(--surface-muted);
 }
@@ -337,6 +359,13 @@ h1 {
   .hero__visual {
     min-height: 28rem;
   }
+
+  .featured { width: min(100% - 2rem, 43rem); }
+  .section-heading { display: block; }
+  .section-heading > p { margin-top: 1rem; }
+  .exercise-carousel { display: block; }
+  .exercise-carousel__track { grid-template-columns: repeat(3, minmax(15rem, 1fr)); overflow: hidden; }
+  .carousel-button { display: none; }
 }
 
 @media (max-width: 420px) {
@@ -383,5 +412,9 @@ h1 {
     min-height: 24rem;
     border-radius: 1rem;
   }
+
+  .featured { width: min(100% - 2rem, 76rem); }
+  .exercise-carousel__track { grid-template-columns: 1fr; }
+  .exercise-card:not(:first-child) { display: none; }
 
 }
