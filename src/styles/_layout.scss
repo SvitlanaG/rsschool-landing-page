@@ -286,6 +286,48 @@ h1 {
 .carousel-progress span { width: 2.5rem; height: 0.2rem; border-radius: 2rem; background: var(--line); }
 .carousel-progress .is-active { background: var(--accent); }
 
+.habits {
+  display: grid;
+  width: min(100% - 3rem, 76rem);
+  grid-template-columns: minmax(14rem, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(3rem, 10vw, 10rem);
+  margin: 0 auto;
+  padding: clamp(4.5rem, 9vw, 8rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.habits__intro h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 1;
+}
+
+.habits__intro > p:last-child {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.habits__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.habit {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 1rem;
+  padding: 1.35rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.habit:last-child { border-bottom: 1px solid var(--line); }
+.habit__number { color: var(--accent); font-family: "Trebuchet MS", sans-serif; font-weight: 800; }
+.habit__time { margin: 0; color: var(--muted); font-family: "Trebuchet MS", sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.habit h3 { margin: 0.35rem 0; font-size: 1.25rem; }
+.habit div > p:last-child { margin: 0; color: var(--muted); line-height: 1.45; }
+
 .site-footer {
   background: var(--surface-muted);
 }
@@ -366,6 +408,8 @@ h1 {
   .exercise-carousel { display: block; }
   .exercise-carousel__track { grid-template-columns: repeat(3, minmax(15rem, 1fr)); overflow: hidden; }
   .carousel-button { display: none; }
+
+  .habits { width: min(100% - 2rem, 43rem); grid-template-columns: 1fr; gap: 2rem; }
 }
 
 @media (max-width: 420px) {
@@ -416,5 +460,8 @@ h1 {
   .featured { width: min(100% - 2rem, 76rem); }
   .exercise-carousel__track { grid-template-columns: 1fr; }
   .exercise-card:not(:first-child) { display: none; }
+
+  .habits { width: min(100% - 2rem, 76rem); }
+  .habit { grid-template-columns: 2.8rem 1fr; }
 
 }
