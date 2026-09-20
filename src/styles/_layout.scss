@@ -328,6 +328,16 @@ h1 {
 .habit h3 { margin: 0.35rem 0; font-size: 1.25rem; }
 .habit div > p:last-child { margin: 0; color: var(--muted); line-height: 1.45; }
 
+.how-it-works { width: min(100% - 3rem, 76rem); margin: 0 auto; padding: clamp(4.5rem, 9vw, 8rem) 0; }
+.how-it-works__heading { max-width: 43rem; }
+.how-it-works__heading h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1; }
+.how-it-works__heading > p:last-child { max-width: 38rem; color: var(--muted); line-height: 1.5; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 3rem 0 0; padding: 0; list-style: none; }
+.steps li { min-height: 15rem; padding: 1.5rem; border-radius: 1rem; background: var(--surface-muted); }
+.steps span { color: var(--accent); font-family: "Trebuchet MS", sans-serif; font-size: 0.88rem; font-weight: 800; }
+.steps h3 { margin: 3.3rem 0 0.65rem; font-size: 1.3rem; }
+.steps p { margin: 0; color: var(--muted); line-height: 1.45; }
+
 .site-footer {
   background: var(--surface-muted);
 }
@@ -410,6 +420,10 @@ h1 {
   .carousel-button { display: none; }
 
   .habits { width: min(100% - 2rem, 43rem); grid-template-columns: 1fr; gap: 2rem; }
+  .how-it-works { width: min(100% - 2rem, 43rem); }
+  .steps { grid-template-columns: 1fr; }
+  .steps li { min-height: auto; }
+  .steps h3 { margin-top: 1.5rem; }
 }
 
 @media (max-width: 420px) {
@@ -463,5 +477,6 @@ h1 {
 
   .habits { width: min(100% - 2rem, 76rem); }
   .habit { grid-template-columns: 2.8rem 1fr; }
+  .how-it-works { width: min(100% - 2rem, 76rem); }
 
 }
