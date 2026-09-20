@@ -1,14 +1,15 @@
 import "./styles/index.scss";
+import heroImage from "./assets/software_dev.jpg";
 
 const THEME_KEY = "health-at-work-theme";
 const LANGUAGE_KEY = "health-at-work-language";
 const page = document.body.dataset.page;
 
 const labels = {
-  en: { home: "Home", exercises: "Exercises", habits: "Healthy habits", about: "About", catalog: "Catalog", theme: "Toggle color theme", language: "Language", footer: "A calmer, healthier workday starts with a two-minute break.", contact: "Contact", email: "hello@healthatwork.example", rights: "Health at Work. Learning project." },
-  de: { home: "Startseite", exercises: "Ubungen", habits: "Gesunde Gewohnheiten", about: "Uber uns", catalog: "Katalog", theme: "Farbschema wechseln", language: "Sprache", footer: "Ein ruhigerer, gesunderer Arbeitstag beginnt mit einer Pause von zwei Minuten.", contact: "Kontakt", email: "hello@healthatwork.example", rights: "Health at Work. Lernprojekt." },
-  uk: { home: "Головна", exercises: "Вправи", habits: "Здорові звички", about: "Про нас", catalog: "Каталог", theme: "Змінити кольорову тему", language: "Мова", footer: "Спокійніший і здоровіший робочий день починається з двохвилинної перерви.", contact: "Контакти", email: "hello@healthatwork.example", rights: "Health at Work. Навчальний проєкт." },
-  ru: { home: "Главная", exercises: "Упражнения", habits: "Здоровые привычки", about: "О нас", catalog: "Каталог", theme: "Переключить тему", language: "Язык", footer: "Более спокойный и здоровый рабочий день начинается с двухминутного перерыва.", contact: "Контакты", email: "hello@healthatwork.example", rights: "Health at Work. Учебный проект." },
+  en: { home: "Home", exercises: "Exercises", habits: "Healthy habits", about: "About", catalog: "Catalog", theme: "Toggle color theme", language: "Language", footer: "A calmer, healthier workday starts with a two-minute break.", contact: "Contact", email: "hello@healthatwork.example", rights: "Health at Work. Learning project.", eyebrow: "Your desk-break companion", heroTitle: "Feel better by the end of your workday.", heroText: "Short, practical exercises for your back, eyes, wrists, and focus. Built for the moments between meetings and commits.", heroCta: "Explore exercises", heroNote: "Gentle movement for everyday wellbeing. Stop if anything hurts." },
+  de: { home: "Startseite", exercises: "Ubungen", habits: "Gesunde Gewohnheiten", about: "Uber uns", catalog: "Katalog", theme: "Farbschema wechseln", language: "Sprache", footer: "Ein ruhigerer, gesunderer Arbeitstag beginnt mit einer Pause von zwei Minuten.", contact: "Kontakt", email: "hello@healthatwork.example", rights: "Health at Work. Lernprojekt.", eyebrow: "Dein Begleiter fur Bildschirmpausen", heroTitle: "Fuhle dich am Ende des Arbeitstags besser.", heroText: "Kurze, praktische Ubungen fur Rucken, Augen, Handgelenke und Fokus. Fur die Zeit zwischen Meetings und Aufgaben.", heroCta: "Ubungen entdecken", heroNote: "Sanfte Bewegung fur das tagliche Wohlbefinden. Hore auf, wenn etwas weh tut." },
+  uk: { home: "Головна", exercises: "Вправи", habits: "Здорові звички", about: "Про нас", catalog: "Каталог", theme: "Змінити кольорову тему", language: "Мова", footer: "Спокійніший і здоровіший робочий день починається з двохвилинної перерви.", contact: "Контакти", email: "hello@healthatwork.example", rights: "Health at Work. Навчальний проєкт.", eyebrow: "Ваш помічник для перерв", heroTitle: "Почувайтеся краще наприкінці робочого дня.", heroText: "Короткі практичні вправи для спини, очей, зап'ясть і концентрації. Для моментів між зустрічами та завданнями.", heroCta: "Переглянути вправи", heroNote: "Легкі рухи для щоденного добробуту. Зупиніться, якщо відчуваєте біль." },
+  ru: { home: "Главная", exercises: "Упражнения", habits: "Здоровые привычки", about: "О нас", catalog: "Каталог", theme: "Переключить тему", language: "Язык", footer: "Более спокойный и здоровый рабочий день начинается с двухминутного перерыва.", contact: "Контакты", email: "hello@healthatwork.example", rights: "Health at Work. Учебный проект.", eyebrow: "Ваш помощник для перерывов", heroTitle: "Чувствуйте себя лучше к концу рабочего дня.", heroText: "Короткие практичные упражнения для спины, глаз, запястий и концентрации. Для моментов между встречами и задачами.", heroCta: "Посмотреть упражнения", heroNote: "Легкие движения для ежедневного благополучия. Остановитесь, если чувствуете боль." },
 };
 
 function sharedHeader() {
@@ -54,7 +55,23 @@ function sharedFooter() {
     </footer>`;
 }
 
-function pagePlaceholder() {
+function pageContent() {
+  if (page === "home") {
+    return `
+      <main>
+        <section class="hero" id="exercises" aria-labelledby="hero-title">
+          <div class="hero__content">
+            <p class="eyebrow" data-label="eyebrow">Your desk-break companion</p>
+            <h1 id="hero-title" data-label="heroTitle">Feel better by the end of your workday.</h1>
+            <p class="hero__text" data-label="heroText">Short, practical exercises for your back, eyes, wrists, and focus. Built for the moments between meetings and commits.</p>
+            <a class="button button--primary" href="catalog.html"><span data-label="heroCta">Explore exercises</span><span aria-hidden="true">→</span></a>
+            <p class="hero__note"><span aria-hidden="true">i</span><span data-label="heroNote">Gentle movement for everyday wellbeing. Stop if anything hurts.</span></p>
+          </div>
+          <div class="hero__visual"><img src="${heroImage}" alt="Developer taking a short break at a desk" /></div>
+        </section>
+      </main>`;
+  }
+
   const title = page === "catalog" ? "Exercise catalog" : "Your workday, with more care";
   const text = page === "catalog" ? "The exercise categories and cards will be added next." : "The first home-page sections will be added next.";
   return `<main class="page-placeholder"><p class="eyebrow">Health at Work</p><h1>${title}</h1><p>${text}</p></main>`;
@@ -75,7 +92,7 @@ function applyTheme(theme) {
   localStorage.setItem(THEME_KEY, theme);
 }
 
-document.querySelector("#app").innerHTML = `${sharedHeader()}${pagePlaceholder()}${sharedFooter()}`;
+document.querySelector("#app").innerHTML = `${sharedHeader()}${pageContent()}${sharedFooter()}`;
 
 const savedTheme = localStorage.getItem(THEME_KEY);
 const initialTheme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
