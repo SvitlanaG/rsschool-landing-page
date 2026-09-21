@@ -5,6 +5,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: "./src/index.js",
   devtool: "source-map",
+  mode: "production",
+  optimization: {
+    minimize: false,
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     publicPath: "/rsschool-landing-page/",
