@@ -6,6 +6,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/rsschool-landing-page/",
     clean: true,
     filename: "bundle.[contenthash].js",
     assetModuleFilename: "assets/[name].[contenthash][ext]",
@@ -20,19 +21,33 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: { loader: "babel-loader", options: { presets: ["@babel/preset-env"] } },
+        use: {
+          loader: "babel-loader",
+          options: { presets: ["@babel/preset-env"] },
+        },
       },
       { test: /\.html$/i, loader: "html-loader" },
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       { test: /\.(png|jpe?g|gif|svg|webp|mp4)$/i, type: "asset/resource" },
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: "./src/index.html", filename: "index.html" }),
-    new HtmlWebpackPlugin({ template: "./src/catalog.html", filename: "catalog.html" }),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      filename: "index.html",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/catalog.html",
+      filename: "catalog.html",
+    }),
     new MiniCssExtractPlugin({ filename: "styles.[contenthash].css" }),
   ],
 };
