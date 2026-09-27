@@ -284,6 +284,54 @@ const catalogExercises = {
   ],
 };
 
+const catalogCategoryExercises = {
+  back: catalogExercises,
+  eyes: {
+    en: [
+      ["01 min", "20-second distance gaze", "Rest your eyes by focusing on a distant point."],
+      ["02 min", "Slow blink reset", "Blink gently and let your eyes settle between screen tasks."],
+      ["02 min", "Near-to-far focus", "Shift focus between a nearby object and something across the room."],
+    ],
+    de: [
+      ["01 Min.", "20 Sekunden in die Ferne schauen", "Entspanne deine Augen, indem du einen entfernten Punkt fokussierst."],
+      ["02 Min.", "Ruhige Blinkpause", "Blinzle bewusst und entspanne deine Augen zwischen Bildschirmaufgaben."],
+      ["02 Min.", "Fokus nah und fern", "Wechsle den Blick zwischen einem nahen Objekt und einem Punkt im Raum."],
+    ],
+    uk: [
+      ["01 хв", "20 секунд погляду вдалечінь", "Дайте очам відпочити, сфокусувавшись на віддаленій точці."],
+      ["02 хв", "Спокійне моргання", "М'яко поморгайте й розслабте очі між завданнями за екраном."],
+      ["02 хв", "Фокус поблизу й удалині", "Переводьте погляд із близького предмета на точку в іншому кінці кімнати."],
+    ],
+    ru: [
+      ["01 мин", "20 секунд взгляда вдаль", "Дайте глазам отдохнуть, сфокусировавшись на удаленной точке."],
+      ["02 мин", "Спокойное моргание", "Мягко поморгайте и расслабьте глаза между задачами за экраном."],
+      ["02 мин", "Фокус вблизи и вдали", "Переводите взгляд с близкого предмета на точку в другом конце комнаты."],
+    ],
+  },
+  hands: {
+    en: [
+      ["03 min", "Wrist and finger flow", "Ease the small muscles that work alongside your keyboard."],
+      ["02 min", "Finger fan and curl", "Spread your fingers wide, then softly curl and release them."],
+      ["02 min", "Forearm stretch", "Lengthen your forearms with gentle wrist stretches."],
+    ],
+    de: [
+      ["03 Min.", "Bewegung für Handgelenke und Finger", "Entspanne die kleinen Muskeln, die an der Tastatur arbeiten."],
+      ["02 Min.", "Finger spreizen und beugen", "Spreize die Finger und beuge und strecke sie anschließend sanft."],
+      ["02 Min.", "Unterarmdehnung", "Dehne deine Unterarme mit sanften Bewegungen der Handgelenke."],
+    ],
+    uk: [
+      ["03 хв", "Рух для зап'ясть і пальців", "Розслабте м'язи, які працюють разом із клавіатурою."],
+      ["02 хв", "Розведення та згинання пальців", "Широко розведіть пальці, а потім м'яко зігніть і розслабте їх."],
+      ["02 хв", "Розтягування передпліч", "М'яко розтягніть передпліччя рухами зап'ясть."],
+    ],
+    ru: [
+      ["03 мин", "Движение для запястий и пальцев", "Расслабьте мышцы, которые работают вместе с клавиатурой."],
+      ["02 мин", "Разведение и сгибание пальцев", "Широко разведите пальцы, затем мягко согните и расслабьте их."],
+      ["02 мин", "Растяжка предплечий", "Мягко растяните предплечья движениями запястий."],
+    ],
+  },
+};
+
 Object.assign(labels.en, {
   featuredEyebrow: "Start here",
   featuredTitle: "Three breaks worth making time for.",
@@ -529,6 +577,21 @@ Object.assign(labels.ru, {
   exerciseImage: "Офисный работник выполняет упражнение на рабочем месте",
 });
 
+const catalogCategoryImages = {
+  back: heroImage,
+  eyes: heroImageDistance,
+  hands: heroImageFingerFlow,
+};
+
+function catalogCardsMarkup(category, language) {
+  return catalogCategoryExercises[category][language]
+    .map(
+      ([time, title, text], index) =>
+        `<article class="catalog-card${index > 5 ? " catalog-card--extra" : ""}" data-exercise-category="${category}" data-exercise-index="${index}"><img src="${catalogCategoryImages[category]}" alt="${labels[language].exerciseImage}" data-alt-label="exerciseImage" /><div><p data-exercise-field="time">${time}</p><h2 data-exercise-field="title">${title}</h2><span data-exercise-field="text">${text}</span></div></article>`,
+    )
+    .join("");
+}
+
 function sharedHeader() {
   return `
     <header class="site-header">
@@ -632,13 +695,8 @@ function pageContent() {
   }
 
   if (page === "catalog") {
-    const cards = catalogExercises.en
-      .map(
-        ([time, title, text], index) =>
-          `<article class="catalog-card${index > 5 ? " catalog-card--extra" : ""}" data-exercise-index="${index}"><img src="${heroImage}" alt="Desk worker doing a workplace exercise" data-alt-label="exerciseImage" /><div><p data-exercise-field="time">${time}</p><h2 data-exercise-field="title">${title}</h2><span data-exercise-field="text">${text}</span></div></article>`,
-      )
-      .join("");
-    return `<main class="catalog-page"><section class="catalog-hero" aria-labelledby="catalog-title"><p class="eyebrow" data-label="catalogEyebrow">Exercise library</p><h1 id="catalog-title" data-label="catalogTitle">Make room for a better workday.</h1><p data-label="catalogText">Pick a short, desk-friendly movement that matches what you need right now.</p></section><section class="catalog-content" aria-label="Exercise catalog"><div class="category-tabs" role="tablist" aria-label="Exercise categories"><button class="category-tab is-active" type="button" role="tab" aria-selected="true" data-label="categoryBack">Back & posture</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-label="categoryEyes">Eyes & focus</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-label="categoryHands">Hands & wrists</button></div><div class="catalog-grid">${cards}</div><button class="show-more" type="button" data-label="showMore">Show more exercises <span aria-hidden="true">↓</span></button></section></main>`;
+    const cards = catalogCardsMarkup("back", "en");
+    return `<main class="catalog-page"><section class="catalog-hero" aria-labelledby="catalog-title"><p class="eyebrow" data-label="catalogEyebrow">Exercise library</p><h1 id="catalog-title" data-label="catalogTitle">Make room for a better workday.</h1><p data-label="catalogText">Pick a short, desk-friendly movement that matches what you need right now.</p></section><section class="catalog-content" aria-label="Exercise catalog"><div class="category-tabs" role="tablist" aria-label="Exercise categories"><button class="category-tab is-active" type="button" role="tab" aria-selected="true" data-category="back" aria-controls="catalog-exercises" data-label="categoryBack">Back & posture</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-category="eyes" aria-controls="catalog-exercises" data-label="categoryEyes">Eyes & focus</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-category="hands" aria-controls="catalog-exercises" data-label="categoryHands">Hands & wrists</button></div><div class="catalog-grid" id="catalog-exercises" role="tabpanel">${cards}</div><button class="show-more" type="button" data-label="showMore">Show more exercises <span aria-hidden="true">↓</span></button></section></main>`;
   }
 
   return `<main class="page-placeholder"><p class="eyebrow">Health at Work</p><h1>Your workday, with more care</h1><p>The first home-page sections will be added next.</p></main>`;
@@ -659,8 +717,7 @@ function applyLanguage(language) {
     if (text) element.alt = text;
   });
   document.querySelectorAll("[data-exercise-index]").forEach((card) => {
-    const [time, title, text] =
-      catalogExercises[language][card.dataset.exerciseIndex];
+    const [time, title, text] = catalogCategoryExercises[card.dataset.exerciseCategory][language][card.dataset.exerciseIndex];
     card.querySelector('[data-exercise-field="time"]').textContent = time;
     card.querySelector('[data-exercise-field="title"]').textContent = title;
     card.querySelector('[data-exercise-field="text"]').textContent = text;
@@ -717,10 +774,44 @@ window.matchMedia("(min-width: 769px)").addEventListener("change", (event) => {
   if (event.matches) setMenuOpen(false);
 });
 
+function setupCatalogCategorySwitching() {
+  const tabs = [...document.querySelectorAll(".category-tab")];
+  const grid = document.querySelector("#catalog-exercises");
+  if (!grid || tabs.length === 0) return;
+
+  let activeCategory = tabs.find((tab) => tab.classList.contains("is-active"))?.dataset.category || "back";
+
+  function selectCategory(tab) {
+    activeCategory = tab.dataset.category;
+    tabs.forEach((categoryTab) => {
+      const isActive = categoryTab === tab;
+      categoryTab.classList.toggle("is-active", isActive);
+      categoryTab.setAttribute("aria-selected", String(isActive));
+    });
+    grid.innerHTML = catalogCardsMarkup(activeCategory, currentLanguage);
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectCategory(tab));
+    tab.addEventListener("keydown", (event) => {
+      let nextIndex;
+      if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+      else if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+      else if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      tabs[nextIndex].focus();
+      selectCategory(tabs[nextIndex]);
+    });
+  });
+}
+
 const initialLanguage = localStorage.getItem(LANGUAGE_KEY) || "en";
 languageSelect.value = initialLanguage;
 currentLanguage = initialLanguage;
 applyLanguage(initialLanguage);
+setupCatalogCategorySwitching();
 setMenuOpen(false);
 
 function setupExerciseCarousel() {
