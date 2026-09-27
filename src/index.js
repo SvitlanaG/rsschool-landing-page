@@ -3,6 +3,7 @@ import heroImage from "./assets/software_dev.jpg";
 import heroImageShoulder from "./assets/dev_shoulder.jpeg";
 import heroImageDistance from "./assets/dev_distance.jpeg";
 import heroImageFingerFlow from "./assets/dev_finger_flow.jpeg";
+import { catalogExercises } from "./data/catalog";
 
 const THEME_KEY = "health-at-work-theme";
 const LANGUAGE_KEY = "health-at-work-language";
@@ -18,6 +19,10 @@ const labels = {
     previousExercise: "Previous exercise",
     nextExercise: "Next exercise",
     showExercise: "Show exercise",
+    exerciseDetails: "Exercise details",
+    sessionLength: "Session length",
+    rounds: "Rounds",
+    closeModal: "Close exercise details",
     menuOpen: "Open navigation menu",
     menuClose: "Close navigation menu",
     theme: "Toggle color theme",
@@ -42,6 +47,10 @@ const labels = {
     previousExercise: "Vorherige Übung",
     nextExercise: "Nächste Übung",
     showExercise: "Übung anzeigen",
+    exerciseDetails: "Übungsdetails",
+    sessionLength: "Dauer",
+    rounds: "Durchgänge",
+    closeModal: "Übungsdetails schließen",
     menuOpen: "Navigation öffnen",
     menuClose: "Navigation schließen",
     theme: "Farbschema wechseln",
@@ -68,6 +77,10 @@ const labels = {
     previousExercise: "Попередня вправа",
     nextExercise: "Наступна вправа",
     showExercise: "Показати вправу",
+    exerciseDetails: "Деталі вправи",
+    sessionLength: "Тривалість",
+    rounds: "Кола",
+    closeModal: "Закрити деталі вправи",
     menuOpen: "Відкрити меню навігації",
     menuClose: "Закрити меню навігації",
     theme: "Змінити кольорову тему",
@@ -94,6 +107,10 @@ const labels = {
     previousExercise: "Предыдущее упражнение",
     nextExercise: "Следующее упражнение",
     showExercise: "Показать упражнение",
+    exerciseDetails: "Описание упражнения",
+    sessionLength: "Длительность",
+    rounds: "Подходы",
+    closeModal: "Закрыть описание упражнения",
     menuOpen: "Открыть меню навигации",
     menuClose: "Закрыть меню навигации",
     theme: "Переключить тему",
@@ -110,225 +127,6 @@ const labels = {
     heroCta: "Посмотреть упражнения",
     heroNote:
       "Легкие движения для ежедневного благополучия. Остановитесь, если чувствуете боль.",
-  },
-};
-
-const catalogExercises = {
-  en: [
-    [
-      "02 min",
-      "Neck release",
-      "A slow, seated reset for a stiff neck and shoulders.",
-    ],
-    [
-      "03 min",
-      "Seated twist",
-      "Create gentle movement through your upper back.",
-    ],
-    [
-      "02 min",
-      "Chair chest opener",
-      "Counter the rounded posture of a long screen session.",
-    ],
-    [
-      "04 min",
-      "Standing side reach",
-      "Lengthen the sides of your body after sitting still.",
-    ],
-    [
-      "03 min",
-      "Wall-supported posture",
-      "Reconnect with a tall, relaxed standing position.",
-    ],
-    [
-      "02 min",
-      "Shoulder circles",
-      "A simple way to invite more ease into your upper body.",
-    ],
-    [
-      "04 min",
-      "Seated hip reset",
-      "Bring a little movement back to your hips and lower back.",
-    ],
-    [
-      "03 min",
-      "Calm back stretch",
-      "Finish a focused block with a comfortable release.",
-    ],
-  ],
-  de: [
-    [
-      "02 Min.",
-      "Nacken lockern",
-      "Eine langsame Pause im Sitzen fur einen steifen Nacken und Schultern.",
-    ],
-    [
-      "03 Min.",
-      "Drehung im Sitzen",
-      "Bringe sanfte Bewegung in deinen oberen Rucken.",
-    ],
-    [
-      "02 Min.",
-      "Brustoffner am Stuhl",
-      "Wirke der gerundeten Haltung nach langer Bildschirmzeit entgegen.",
-    ],
-    [
-      "04 Min.",
-      "Seitliche Streckung im Stehen",
-      "Verlangere die Seiten deines Korpers nach langem Sitzen.",
-    ],
-    [
-      "03 Min.",
-      "Haltung an der Wand",
-      "Finde zu einer aufrechten, entspannten Haltung zuruck.",
-    ],
-    [
-      "02 Min.",
-      "Schulterkreisen",
-      "Eine einfache Bewegung fur mehr Leichtigkeit im Oberkorper.",
-    ],
-    [
-      "04 Min.",
-      "Huftpause im Sitzen",
-      "Gib Huften und unterem Rucken wieder etwas Bewegung.",
-    ],
-    [
-      "03 Min.",
-      "Ruhige Ruckenstreckung",
-      "Beende einen konzentrierten Arbeitsblock mit angenehmer Entlastung.",
-    ],
-  ],
-  uk: [
-    [
-      "02 хв",
-      "Розслаблення шиї",
-      "Повільне відновлення сидячи для напруженої шиї та плечей.",
-    ],
-    [
-      "03 хв",
-      "Скручування сидячи",
-      "Додайте м'якого руху верхній частині спини.",
-    ],
-    [
-      "02 хв",
-      "Розкриття грудної клітки",
-      "Зменште округлення постави після тривалої роботи за екраном.",
-    ],
-    [
-      "04 хв",
-      "Бічне витягування стоячи",
-      "Витягніть боки тіла після тривалого сидіння.",
-    ],
-    [
-      "03 хв",
-      "Постава біля стіни",
-      "Поверніться до високого й розслабленого положення стоячи.",
-    ],
-    [
-      "02 хв",
-      "Кола плечима",
-      "Простий рух для більшої легкості у верхній частині тіла.",
-    ],
-    [
-      "04 хв",
-      "Відновлення стегон сидячи",
-      "Поверніть трохи руху стегнам і попереку.",
-    ],
-    [
-      "03 хв",
-      "Спокійне розтягування спини",
-      "Завершіть зосереджений блок комфортним розслабленням.",
-    ],
-  ],
-  ru: [
-    [
-      "02 мин",
-      "Расслабление шеи",
-      "Медленное восстановление сидя для напряженной шеи и плеч.",
-    ],
-    [
-      "03 мин",
-      "Скручивание сидя",
-      "Добавьте мягкое движение верхней части спины.",
-    ],
-    [
-      "02 мин",
-      "Раскрытие грудной клетки",
-      "Уменьшите округление осанки после долгой работы за экраном.",
-    ],
-    [
-      "04 мин",
-      "Боковое вытягивание стоя",
-      "Вытяните боковые части тела после долгого сидения.",
-    ],
-    [
-      "03 мин",
-      "Осанка у стены",
-      "Вернитесь к высокому и расслабленному положению стоя.",
-    ],
-    [
-      "02 мин",
-      "Круги плечами",
-      "Простое движение для большей легкости в верхней части тела.",
-    ],
-    [
-      "04 мин",
-      "Восстановление бедер сидя",
-      "Верните немного движения бедрам и пояснице.",
-    ],
-    [
-      "03 мин",
-      "Спокойная растяжка спины",
-      "Завершите сосредоточенный блок комфортным расслаблением.",
-    ],
-  ],
-};
-
-const catalogCategoryExercises = {
-  back: catalogExercises,
-  eyes: {
-    en: [
-      ["01 min", "20-second distance gaze", "Rest your eyes by focusing on a distant point."],
-      ["02 min", "Slow blink reset", "Blink gently and let your eyes settle between screen tasks."],
-      ["02 min", "Near-to-far focus", "Shift focus between a nearby object and something across the room."],
-    ],
-    de: [
-      ["01 Min.", "20 Sekunden in die Ferne schauen", "Entspanne deine Augen, indem du einen entfernten Punkt fokussierst."],
-      ["02 Min.", "Ruhige Blinkpause", "Blinzle bewusst und entspanne deine Augen zwischen Bildschirmaufgaben."],
-      ["02 Min.", "Fokus nah und fern", "Wechsle den Blick zwischen einem nahen Objekt und einem Punkt im Raum."],
-    ],
-    uk: [
-      ["01 хв", "20 секунд погляду вдалечінь", "Дайте очам відпочити, сфокусувавшись на віддаленій точці."],
-      ["02 хв", "Спокійне моргання", "М'яко поморгайте й розслабте очі між завданнями за екраном."],
-      ["02 хв", "Фокус поблизу й удалині", "Переводьте погляд із близького предмета на точку в іншому кінці кімнати."],
-    ],
-    ru: [
-      ["01 мин", "20 секунд взгляда вдаль", "Дайте глазам отдохнуть, сфокусировавшись на удаленной точке."],
-      ["02 мин", "Спокойное моргание", "Мягко поморгайте и расслабьте глаза между задачами за экраном."],
-      ["02 мин", "Фокус вблизи и вдали", "Переводите взгляд с близкого предмета на точку в другом конце комнаты."],
-    ],
-  },
-  hands: {
-    en: [
-      ["03 min", "Wrist and finger flow", "Ease the small muscles that work alongside your keyboard."],
-      ["02 min", "Finger fan and curl", "Spread your fingers wide, then softly curl and release them."],
-      ["02 min", "Forearm stretch", "Lengthen your forearms with gentle wrist stretches."],
-    ],
-    de: [
-      ["03 Min.", "Bewegung für Handgelenke und Finger", "Entspanne die kleinen Muskeln, die an der Tastatur arbeiten."],
-      ["02 Min.", "Finger spreizen und beugen", "Spreize die Finger und beuge und strecke sie anschließend sanft."],
-      ["02 Min.", "Unterarmdehnung", "Dehne deine Unterarme mit sanften Bewegungen der Handgelenke."],
-    ],
-    uk: [
-      ["03 хв", "Рух для зап'ясть і пальців", "Розслабте м'язи, які працюють разом із клавіатурою."],
-      ["02 хв", "Розведення та згинання пальців", "Широко розведіть пальці, а потім м'яко зігніть і розслабте їх."],
-      ["02 хв", "Розтягування передпліч", "М'яко розтягніть передпліччя рухами зап'ясть."],
-    ],
-    ru: [
-      ["03 мин", "Движение для запястий и пальцев", "Расслабьте мышцы, которые работают вместе с клавиатурой."],
-      ["02 мин", "Разведение и сгибание пальцев", "Широко разведите пальцы, затем мягко согните и расслабьте их."],
-      ["02 мин", "Растяжка предплечий", "Мягко растяните предплечья движениями запястий."],
-    ],
   },
 };
 
@@ -577,17 +375,23 @@ Object.assign(labels.ru, {
   exerciseImage: "Офисный работник выполняет упражнение на рабочем месте",
 });
 
-const catalogCategoryImages = {
-  back: heroImage,
-  eyes: heroImageDistance,
-  hands: heroImageFingerFlow,
+const durationUnits = {
+  en: "min",
+  de: "Min.",
+  uk: "хв",
+  ru: "мин",
 };
 
+function formatDuration(minutes, language) {
+  return `${String(minutes).padStart(2, "0")} ${durationUnits[language]}`;
+}
+
 function catalogCardsMarkup(category, language) {
-  return catalogCategoryExercises[category][language]
+  return catalogExercises
+    .filter((exercise) => exercise.category === category)
     .map(
-      ([time, title, text], index) =>
-        `<article class="catalog-card${index > 5 ? " catalog-card--extra" : ""}" data-exercise-category="${category}" data-exercise-index="${index}"><img src="${catalogCategoryImages[category]}" alt="${labels[language].exerciseImage}" data-alt-label="exerciseImage" /><div><p data-exercise-field="time">${time}</p><h2 data-exercise-field="title">${title}</h2><span data-exercise-field="text">${text}</span></div></article>`,
+      (exercise, index) =>
+        `<article class="catalog-card${index > 5 ? " catalog-card--extra" : ""}" data-exercise-id="${exercise.id}" data-exercise-category="${category}" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="exercise-modal"><img src="${exercise.image}" alt="${exercise.imageAlt[language]}" /><div><p>${formatDuration(exercise.durationMinutes, language)}</p><h2>${exercise.title[language]}</h2><span>${exercise.description[language]}</span></div></article>`,
     )
     .join("");
 }
@@ -696,7 +500,7 @@ function pageContent() {
 
   if (page === "catalog") {
     const cards = catalogCardsMarkup("back", "en");
-    return `<main class="catalog-page"><section class="catalog-hero" aria-labelledby="catalog-title"><p class="eyebrow" data-label="catalogEyebrow">Exercise library</p><h1 id="catalog-title" data-label="catalogTitle">Make room for a better workday.</h1><p data-label="catalogText">Pick a short, desk-friendly movement that matches what you need right now.</p></section><section class="catalog-content" aria-label="Exercise catalog"><div class="category-tabs" role="tablist" aria-label="Exercise categories"><button class="category-tab is-active" type="button" role="tab" aria-selected="true" data-category="back" aria-controls="catalog-exercises" data-label="categoryBack">Back & posture</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-category="eyes" aria-controls="catalog-exercises" data-label="categoryEyes">Eyes & focus</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-category="hands" aria-controls="catalog-exercises" data-label="categoryHands">Hands & wrists</button></div><div class="catalog-grid" id="catalog-exercises" role="tabpanel">${cards}</div><button class="show-more" type="button" data-label="showMore">Show more exercises <span aria-hidden="true">↓</span></button></section></main>`;
+    return `<main class="catalog-page"><section class="catalog-hero" aria-labelledby="catalog-title"><p class="eyebrow" data-label="catalogEyebrow">Exercise library</p><h1 id="catalog-title" data-label="catalogTitle">Make room for a better workday.</h1><p data-label="catalogText">Pick a short, desk-friendly movement that matches what you need right now.</p></section><section class="catalog-content" aria-label="Exercise catalog"><div class="category-tabs" role="tablist" aria-label="Exercise categories"><button class="category-tab is-active" type="button" role="tab" aria-selected="true" data-category="back" aria-controls="catalog-exercises" data-label="categoryBack">Back & posture</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-category="eyes" aria-controls="catalog-exercises" data-label="categoryEyes">Eyes & focus</button><button class="category-tab" type="button" role="tab" aria-selected="false" data-category="hands" aria-controls="catalog-exercises" data-label="categoryHands">Hands & wrists</button></div><div class="catalog-grid" id="catalog-exercises" role="tabpanel">${cards}</div><button class="show-more" type="button" data-label="showMore">Show more exercises <span aria-hidden="true">↓</span></button></section><dialog class="exercise-modal" id="exercise-modal" aria-labelledby="exercise-modal-title"><div class="exercise-modal__content" id="exercise-modal-content"></div></dialog></main>`;
   }
 
   return `<main class="page-placeholder"><p class="eyebrow">Health at Work</p><h1>Your workday, with more care</h1><p>The first home-page sections will be added next.</p></main>`;
@@ -716,11 +520,13 @@ function applyLanguage(language) {
     const text = labels[language][element.dataset.altLabel];
     if (text) element.alt = text;
   });
-  document.querySelectorAll("[data-exercise-index]").forEach((card) => {
-    const [time, title, text] = catalogCategoryExercises[card.dataset.exerciseCategory][language][card.dataset.exerciseIndex];
-    card.querySelector('[data-exercise-field="time"]').textContent = time;
-    card.querySelector('[data-exercise-field="title"]').textContent = title;
-    card.querySelector('[data-exercise-field="text"]').textContent = text;
+  document.querySelectorAll("[data-exercise-id]").forEach((card) => {
+    const exercise = catalogExercises.find((item) => item.id === card.dataset.exerciseId);
+    if (!exercise) return;
+    card.querySelector("p").textContent = formatDuration(exercise.durationMinutes, language);
+    card.querySelector("h2").textContent = exercise.title[language];
+    card.querySelector("span").textContent = exercise.description[language];
+    card.querySelector("img").alt = exercise.imageAlt[language];
   });
 }
 
@@ -777,18 +583,32 @@ window.matchMedia("(min-width: 769px)").addEventListener("change", (event) => {
 function setupCatalogCategorySwitching() {
   const tabs = [...document.querySelectorAll(".category-tab")];
   const grid = document.querySelector("#catalog-exercises");
+  const showMoreButton = document.querySelector(".show-more");
   if (!grid || tabs.length === 0) return;
 
   let activeCategory = tabs.find((tab) => tab.classList.contains("is-active"))?.dataset.category || "back";
+  let expanded = false;
+
+  function updateCardVisibility() {
+    const cards = [...grid.querySelectorAll(".catalog-card")];
+    const showAll = window.innerWidth > 768 || expanded;
+    const visibleCount = showAll ? cards.length : 4;
+    cards.forEach((card, index) => {
+      card.hidden = index >= visibleCount;
+    });
+    showMoreButton.hidden = showAll || cards.length <= visibleCount;
+  }
 
   function selectCategory(tab) {
     activeCategory = tab.dataset.category;
+    expanded = false;
     tabs.forEach((categoryTab) => {
       const isActive = categoryTab === tab;
       categoryTab.classList.toggle("is-active", isActive);
       categoryTab.setAttribute("aria-selected", String(isActive));
     });
     grid.innerHTML = catalogCardsMarkup(activeCategory, currentLanguage);
+    updateCardVisibility();
   }
 
   tabs.forEach((tab, index) => {
@@ -805,6 +625,60 @@ function setupCatalogCategorySwitching() {
       selectCategory(tabs[nextIndex]);
     });
   });
+
+  showMoreButton.addEventListener("click", () => {
+    expanded = true;
+    updateCardVisibility();
+  });
+  window.addEventListener("resize", updateCardVisibility);
+  updateCardVisibility();
+}
+
+function setupExerciseModal() {
+  const grid = document.querySelector("#catalog-exercises");
+  const modal = document.querySelector("#exercise-modal");
+  const content = document.querySelector("#exercise-modal-content");
+  if (!grid || !modal || !content) return;
+
+  function openExercise(exercise) {
+    const optionsMarkup = exercise.options
+      .map((option, index) =>
+        `<label class="exercise-modal__option"><input type="radio" name="exercise-variant" value="${option.id}" ${index === 0 ? "checked" : ""}><span>${option.label[currentLanguage]}</span></label>`,
+      )
+      .join("");
+
+    content.innerHTML = `<button class="exercise-modal__close" type="button" aria-label="${labels[currentLanguage].closeModal}">×</button><div class="exercise-modal__layout"><img class="exercise-modal__image" src="${exercise.image}" alt="${exercise.imageAlt[currentLanguage]}"><div class="exercise-modal__details"><p class="eyebrow">${labels[currentLanguage].exerciseDetails}</p><h2 id="exercise-modal-title">${exercise.title[currentLanguage]}</h2><p class="exercise-modal__description">${exercise.description[currentLanguage]}</p><fieldset class="exercise-modal__variants"><legend>${labels[currentLanguage].rounds}</legend>${optionsMarkup}</fieldset><p class="exercise-modal__duration"><strong>${labels[currentLanguage].sessionLength}:</strong> <span data-modal-duration></span></p><p class="exercise-modal__option-detail" data-modal-option-detail></p></div></div>`;
+
+    function updateSelectedOption(optionId) {
+      const option = exercise.options.find((item) => item.id === optionId);
+      content.querySelector("[data-modal-duration]").textContent = formatDuration(exercise.durationMinutes * option.multiplier, currentLanguage);
+      content.querySelector("[data-modal-option-detail]").textContent = option.detail[currentLanguage];
+    }
+
+    content.querySelector(".exercise-modal__close").addEventListener("click", () => modal.close());
+    content.querySelectorAll('input[name="exercise-variant"]').forEach((input) => {
+      input.addEventListener("change", () => updateSelectedOption(input.value));
+    });
+    updateSelectedOption(exercise.options[0].id);
+    modal.showModal();
+  }
+
+  grid.addEventListener("click", (event) => {
+    const card = event.target.closest(".catalog-card");
+    if (!card) return;
+    const exercise = catalogExercises.find((item) => item.id === card.dataset.exerciseId);
+    if (exercise) openExercise(exercise);
+  });
+  grid.addEventListener("keydown", (event) => {
+    const card = event.target.closest(".catalog-card");
+    if (!card || (event.key !== "Enter" && event.key !== " ")) return;
+    event.preventDefault();
+    const exercise = catalogExercises.find((item) => item.id === card.dataset.exerciseId);
+    if (exercise) openExercise(exercise);
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) modal.close();
+  });
 }
 
 const initialLanguage = localStorage.getItem(LANGUAGE_KEY) || "en";
@@ -812,6 +686,7 @@ languageSelect.value = initialLanguage;
 currentLanguage = initialLanguage;
 applyLanguage(initialLanguage);
 setupCatalogCategorySwitching();
+setupExerciseModal();
 setMenuOpen(false);
 
 function setupExerciseCarousel() {
