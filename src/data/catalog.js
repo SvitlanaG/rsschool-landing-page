@@ -58,6 +58,30 @@ const handsAlt = {
 
 const sharedOptions = [exerciseVariants.single, exerciseVariants.double];
 
+const exercisePaces = {
+  gentle: {
+    id: "gentle",
+    label: { en: "Gentle", de: "Sanft", uk: "М'який", ru: "Мягкий" },
+    detail: {
+      en: "Move slowly and keep each movement small and comfortable.",
+      de: "Bewege dich langsam und halte jede Bewegung klein und angenehm.",
+      uk: "Рухайтеся повільно, зберігаючи рухи невеликими й комфортними.",
+      ru: "Двигайтесь медленно, сохраняя движения небольшими и комфортными.",
+    },
+  },
+  steady: {
+    id: "steady",
+    label: { en: "Steady", de: "Gleichmäßig", uk: "Рівний", ru: "Ровный" },
+    detail: {
+      en: "Use a smooth, steady rhythm while staying within a comfortable range.",
+      de: "Bewege dich gleichmäßig und bleibe in einem angenehmen Bewegungsbereich.",
+      uk: "Рухайтеся плавно й рівномірно в комфортному діапазоні.",
+      ru: "Двигайтесь плавно и равномерно в комфортном диапазоне.",
+    },
+  },
+};
+const sharedPaces = [exercisePaces.gentle, exercisePaces.steady];
+
 export const catalogExercises = [
   {
     id: "neck-release",
@@ -73,6 +97,7 @@ export const catalogExercises = [
     image: backImage,
     imageAlt: backAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "seated-twist",
@@ -88,6 +113,7 @@ export const catalogExercises = [
     image: backImage,
     imageAlt: backAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "chair-chest-opener",
@@ -103,6 +129,7 @@ export const catalogExercises = [
     image: backImage,
     imageAlt: backAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "standing-side-reach",
@@ -118,6 +145,7 @@ export const catalogExercises = [
     image: backImage,
     imageAlt: backAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "wall-posture",
@@ -133,6 +161,7 @@ export const catalogExercises = [
     image: backImage,
     imageAlt: backAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "shoulder-circles",
@@ -148,6 +177,7 @@ export const catalogExercises = [
     image: backImage,
     imageAlt: backAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "seated-hip-reset",
@@ -163,6 +193,7 @@ export const catalogExercises = [
     image: backImage,
     imageAlt: backAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "calm-back-stretch",
@@ -178,6 +209,7 @@ export const catalogExercises = [
     image: backImage,
     imageAlt: backAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "distance-gaze",
@@ -193,6 +225,7 @@ export const catalogExercises = [
     image: eyesImage,
     imageAlt: eyesAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "slow-blink-reset",
@@ -208,6 +241,7 @@ export const catalogExercises = [
     image: eyesImage,
     imageAlt: eyesAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "near-far-focus",
@@ -223,6 +257,7 @@ export const catalogExercises = [
     image: eyesImage,
     imageAlt: eyesAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "wrist-finger-flow",
@@ -238,6 +273,7 @@ export const catalogExercises = [
     image: handsImage,
     imageAlt: handsAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "finger-fan-curl",
@@ -253,6 +289,7 @@ export const catalogExercises = [
     image: handsImage,
     imageAlt: handsAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
   {
     id: "forearm-stretch",
@@ -268,5 +305,6 @@ export const catalogExercises = [
     image: handsImage,
     imageAlt: handsAlt,
     options: sharedOptions,
+    paceOptions: sharedPaces,
   },
 ];

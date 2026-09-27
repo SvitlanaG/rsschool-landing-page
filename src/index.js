@@ -22,6 +22,7 @@ const labels = {
     exerciseDetails: "Exercise details",
     sessionLength: "Session length",
     rounds: "Rounds",
+    pace: "Pace",
     closeModal: "Close exercise details",
     menuOpen: "Open navigation menu",
     menuClose: "Close navigation menu",
@@ -50,6 +51,7 @@ const labels = {
     exerciseDetails: "Übungsdetails",
     sessionLength: "Dauer",
     rounds: "Durchgänge",
+    pace: "Tempo",
     closeModal: "Übungsdetails schließen",
     menuOpen: "Navigation öffnen",
     menuClose: "Navigation schließen",
@@ -80,6 +82,7 @@ const labels = {
     exerciseDetails: "Деталі вправи",
     sessionLength: "Тривалість",
     rounds: "Кола",
+    pace: "Темп",
     closeModal: "Закрити деталі вправи",
     menuOpen: "Відкрити меню навігації",
     menuClose: "Закрити меню навігації",
@@ -110,6 +113,7 @@ const labels = {
     exerciseDetails: "Описание упражнения",
     sessionLength: "Длительность",
     rounds: "Подходы",
+    pace: "Темп",
     closeModal: "Закрыть описание упражнения",
     menuOpen: "Открыть меню навигации",
     menuClose: "Закрыть меню навигации",
@@ -640,26 +644,36 @@ function setupExerciseModal() {
   const content = document.querySelector("#exercise-modal-content");
   if (!grid || !modal || !content) return;
 
+  let previousBodyOverflow = "";
+  let bodyWasLocked = false;
+
   function openExercise(exercise) {
-    const optionsMarkup = exercise.options
-      .map((option, index) =>
-        `<label class="exercise-modal__option"><input type="radio" name="exercise-variant" value="${option.id}" ${index === 0 ? "checked" : ""}><span>${option.label[currentLanguage]}</span></label>`,
-      )
+    const renderOptions = (options, group) => options
+      .map((option, index) => `<label class="exercise-modal__option"><input type="radio" name="${group}" value="${option.id}" ${index === 0 ? "checked" : ""}><span>${option.label[currentLanguage]}</span></label>`)
       .join("");
+    const roundsMarkup = renderOptions(exercise.options, "exercise-variant");
+    const paceMarkup = renderOptions(exercise.paceOptions, "exercise-pace");
 
-    content.innerHTML = `<button class="exercise-modal__close" type="button" aria-label="${labels[currentLanguage].closeModal}">×</button><div class="exercise-modal__layout"><img class="exercise-modal__image" src="${exercise.image}" alt="${exercise.imageAlt[currentLanguage]}"><div class="exercise-modal__details"><p class="eyebrow">${labels[currentLanguage].exerciseDetails}</p><h2 id="exercise-modal-title">${exercise.title[currentLanguage]}</h2><p class="exercise-modal__description">${exercise.description[currentLanguage]}</p><fieldset class="exercise-modal__variants"><legend>${labels[currentLanguage].rounds}</legend>${optionsMarkup}</fieldset><p class="exercise-modal__duration"><strong>${labels[currentLanguage].sessionLength}:</strong> <span data-modal-duration></span></p><p class="exercise-modal__option-detail" data-modal-option-detail></p></div></div>`;
+    content.innerHTML = `<button class="exercise-modal__close" type="button" aria-label="${labels[currentLanguage].closeModal}">×</button><div class="exercise-modal__layout"><img class="exercise-modal__image" src="${exercise.image}" alt="${exercise.imageAlt[currentLanguage]}"><div class="exercise-modal__details"><p class="eyebrow">${labels[currentLanguage].exerciseDetails}</p><h2 id="exercise-modal-title">${exercise.title[currentLanguage]}</h2><p class="exercise-modal__description">${exercise.description[currentLanguage]}</p><fieldset class="exercise-modal__variants"><legend>${labels[currentLanguage].rounds}</legend>${roundsMarkup}</fieldset><fieldset class="exercise-modal__variants"><legend>${labels[currentLanguage].pace}</legend>${paceMarkup}</fieldset><p class="exercise-modal__duration"><strong>${labels[currentLanguage].sessionLength}:</strong> <span data-modal-duration></span></p><p class="exercise-modal__option-detail" data-modal-option-detail></p><p class="exercise-modal__option-detail" data-modal-pace-detail></p></div></div>`;
 
-    function updateSelectedOption(optionId) {
-      const option = exercise.options.find((item) => item.id === optionId);
-      content.querySelector("[data-modal-duration]").textContent = formatDuration(exercise.durationMinutes * option.multiplier, currentLanguage);
-      content.querySelector("[data-modal-option-detail]").textContent = option.detail[currentLanguage];
+    function updateSelection() {
+      const roundId = content.querySelector('input[name="exercise-variant"]:checked').value;
+      const paceId = content.querySelector('input[name="exercise-pace"]:checked').value;
+      const round = exercise.options.find((item) => item.id === roundId);
+      const pace = exercise.paceOptions.find((item) => item.id === paceId);
+      content.querySelector("[data-modal-duration]").textContent = formatDuration(exercise.durationMinutes * round.multiplier, currentLanguage);
+      content.querySelector("[data-modal-option-detail]").textContent = round.detail[currentLanguage];
+      content.querySelector("[data-modal-pace-detail]").textContent = pace.detail[currentLanguage];
     }
 
     content.querySelector(".exercise-modal__close").addEventListener("click", () => modal.close());
-    content.querySelectorAll('input[name="exercise-variant"]').forEach((input) => {
-      input.addEventListener("change", () => updateSelectedOption(input.value));
+    content.querySelectorAll('input[name="exercise-variant"], input[name="exercise-pace"]').forEach((input) => {
+      input.addEventListener("change", updateSelection);
     });
-    updateSelectedOption(exercise.options[0].id);
+    updateSelection();
+    previousBodyOverflow = document.body.style.overflow;
+    bodyWasLocked = true;
+    document.body.style.overflow = "hidden";
     modal.showModal();
   }
 
@@ -678,6 +692,11 @@ function setupExerciseModal() {
   });
   modal.addEventListener("click", (event) => {
     if (event.target === modal) modal.close();
+  });
+  modal.addEventListener("close", () => {
+    if (!bodyWasLocked) return;
+    document.body.style.overflow = previousBodyOverflow;
+    bodyWasLocked = false;
   });
 }
 
