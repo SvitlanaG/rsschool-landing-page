@@ -395,7 +395,7 @@ function catalogCardsMarkup(category, language) {
     .filter((exercise) => exercise.category === category)
     .map(
       (exercise, index) =>
-        `<article class="catalog-card${index > 5 ? " catalog-card--extra" : ""}" data-exercise-id="${exercise.id}" data-exercise-category="${category}" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="exercise-modal"><img src="${exercise.image}" alt="${exercise.imageAlt[language]}" /><div><p>${formatDuration(exercise.durationMinutes, language)}</p><h2>${exercise.title[language]}</h2><span>${exercise.description[language]}</span></div></article>`,
+        `<article class="catalog-card${index > 5 ? " catalog-card--extra" : ""}" data-exercise-id="${exercise.id}" data-exercise-category="${category}" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="exercise-modal"><img src="${exercise.image}" alt="${exercise.imageAlt[language]}"><div><p>${formatDuration(exercise.durationMinutes, language)}</p><h2>${exercise.title[language]}</h2><span>${exercise.description[language]}</span></div></article>`,
     )
     .join("");
 }
@@ -456,7 +456,7 @@ function pageContent() {
             <a class="button button--primary" href="catalog.html"><span data-label="heroCta">Explore exercises</span><span aria-hidden="true">→</span></a>
             <p class="hero__note"><span aria-hidden="true">i</span><span data-label="heroNote">Gentle movement for everyday wellbeing. Stop if anything hurts.</span></p>
           </div>
-          <div class="hero__visual"><img src="${heroImage}" alt="Developer taking a short break at a desk" /></div>
+          <div class="hero__visual"><img src="${heroImage}" alt="Developer taking a short break at a desk"></div>
         </section>
         <section class="featured" id="exercises" aria-labelledby="featured-title">
           <div class="section-heading">
@@ -466,9 +466,9 @@ function pageContent() {
           <div class="exercise-carousel" role="region" aria-roledescription="carousel" aria-label="Featured exercises">
             <button class="carousel-button" type="button" data-carousel-direction="previous" aria-label="Previous exercise" aria-controls="featured-exercises-track">←</button>
             <div class="exercise-carousel__track" id="featured-exercises-track" aria-live="polite">
-              <article class="exercise-card is-active" aria-hidden="false"><img src="${heroImageShoulder}" alt="Desk worker stretching their shoulders" /><div><p data-label="stretchTime">02 min</p><h3 data-label="stretchTitle">Seated shoulder reset</h3><span data-label="stretchText">Release upper-body tension without leaving your chair.</span></div></article>
-              <article class="exercise-card" aria-hidden="true"><img src="${heroImageDistance}" alt="Desk worker taking an eye break" /><div><p data-label="eyeTime">01 min</p><h3 data-label="eyeTitle">20-second distance gaze</h3><span data-label="eyeText">Give focused eyes a brief change of scenery.</span></div></article>
-              <article class="exercise-card" aria-hidden="true"><img src="${heroImageFingerFlow}" alt="Desk worker resting their hands" /><div><p data-label="wristTime">03 min</p><h3 data-label="wristTitle">Wrist and finger flow</h3><span data-label="wristText">Ease the small muscles that work alongside your keyboard.</span></div></article>
+              <article class="exercise-card is-active" aria-hidden="false"><img src="${heroImageShoulder}" alt="Desk worker stretching their shoulders"><div><p data-label="stretchTime">02 min</p><h3 data-label="stretchTitle">Seated shoulder reset</h3><span data-label="stretchText">Release upper-body tension without leaving your chair.</span></div></article>
+              <article class="exercise-card" aria-hidden="true"><img src="${heroImageDistance}" alt="Desk worker taking an eye break"><div><p data-label="eyeTime">01 min</p><h3 data-label="eyeTitle">20-second distance gaze</h3><span data-label="eyeText">Give focused eyes a brief change of scenery.</span></div></article>
+              <article class="exercise-card" aria-hidden="true"><img src="${heroImageFingerFlow}" alt="Desk worker resting their hands"><div><p data-label="wristTime">03 min</p><h3 data-label="wristTitle">Wrist and finger flow</h3><span data-label="wristText">Ease the small muscles that work alongside your keyboard.</span></div></article>
             </div>
             <button class="carousel-button" type="button" data-carousel-direction="next" aria-label="Next exercise" aria-controls="featured-exercises-track">→</button>
           </div>
