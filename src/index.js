@@ -15,6 +15,8 @@ const labels = {
     habits: "Healthy habits",
     about: "How it works",
     catalog: "Catalog",
+    menuOpen: "Open navigation menu",
+    menuClose: "Close navigation menu",
     theme: "Toggle color theme",
     language: "Language",
     footer: "A calmer, healthier workday starts with a two-minute break.",
@@ -34,6 +36,8 @@ const labels = {
     habits: "Gesunde Gewohnheiten",
     about: "So funktioniert es",
     catalog: "Katalog",
+    menuOpen: "Navigation offnen",
+    menuClose: "Navigation schließen",
     theme: "Farbschema wechseln",
     language: "Sprache",
     footer:
@@ -55,6 +59,8 @@ const labels = {
     habits: "Здорові звички",
     about: "Як це працює",
     catalog: "Каталог",
+    menuOpen: "Відкрити меню навігації",
+    menuClose: "Закрити меню навігації",
     theme: "Змінити кольорову тему",
     language: "Мова",
     footer:
@@ -76,6 +82,8 @@ const labels = {
     habits: "Здоровые привычки",
     about: "Как это работает",
     catalog: "Каталог",
+    menuOpen: "Открыть меню навигации",
+    menuClose: "Закрыть меню навигации",
     theme: "Переключить тему",
     language: "Язык",
     footer:
@@ -516,12 +524,13 @@ function sharedHeader() {
         <a class="brand" href="index.html" aria-label="Health at Work home">
           <span class="brand__mark" aria-hidden="true">+</span><span>Health at Work</span>
         </a>
-        <nav class="site-nav" aria-label="Primary navigation">
+        <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
           <ul>
             <li><a data-label="home" href="index.html">Home</a></li>
             <li><a data-label="exercises" href="index.html#exercises">Exercises</a></li>
             <li><a data-label="habits" href="index.html#habits">Healthy habits</a></li>
             <li><a data-label="about" href="index.html#about">How it works</a></li>
+            <li><a data-label="contact" href="index.html#contact">Contact</a></li>
             <li><a class="site-nav__catalog" data-label="catalog" href="catalog.html">Catalog</a></li>
           </ul>
         </nav>
@@ -533,7 +542,7 @@ function sharedHeader() {
           <button class="theme-toggle" type="button" aria-label="Toggle color theme">
             <span aria-hidden="true">sun</span><span class="theme-toggle__track"><span></span></span><span aria-hidden="true">moon</span>
           </button>
-          <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+          <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
             <span></span><span></span><span></span>
           </button>
         </div>
@@ -543,7 +552,7 @@ function sharedHeader() {
 
 function sharedFooter() {
   return `
-    <footer class="site-footer" id="about">
+    <footer class="site-footer" id="contact">
       <div class="site-footer__inner">
         <div><a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">+</span><span>Health at Work</span></a><p data-label="footer">A calmer, healthier workday starts with a two-minute break.</p></div>
         <div><h2 data-label="contact">Contact</h2><a href="mailto:hello@healthatwork.example" data-label="email">hello@healthatwork.example</a><a href="https://github.com/SvitlanaG" target="_blank" rel="noreferrer">GitHub</a></div>
@@ -595,7 +604,7 @@ function pageContent() {
             <li class="habit"><span class="habit__number">04</span><div><p class="habit__time" data-label="habitFourTime">Between tasks</p><h3 data-label="habitFourTitle">Take a breath on purpose</h3><p data-label="habitFourText">Pause for three slow breaths. It is a small transition with a surprisingly large effect.</p></div></li>
           </ol>
         </section>
-        <section class="how-it-works" aria-labelledby="how-title">
+        <section class="how-it-works" id="about" aria-labelledby="how-title">
           <div class="how-it-works__heading"><p class="eyebrow" data-label="howEyebrow">Keep it simple</p><h2 id="how-title" data-label="howTitle">A break that fits inside a real workday.</h2><p data-label="howText">No special equipment, no complicated routine. Just a little more care between the things you already need to do.</p></div>
           <ol class="steps">
             <li><span>01</span><h3 data-label="stepOneTitle">Choose your reset</h3><p data-label="stepOneText">Find an exercise for the part of your body that needs attention.</p></li>
@@ -659,9 +668,44 @@ const initialTheme =
 applyTheme(initialTheme);
 
 const languageSelect = document.querySelector("#language-select");
+const menuToggle = document.querySelector(".menu-toggle");
+const siteNav = document.querySelector(".site-nav");
+let currentLanguage = "en";
+
+function setMenuOpen(isOpen) {
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute(
+    "aria-label",
+    labels[currentLanguage][isOpen ? "menuClose" : "menuOpen"],
+  );
+  siteNav.classList.toggle("is-open", isOpen);
+  document.body.classList.toggle("menu-open", isOpen);
+}
+
+menuToggle.addEventListener("click", () => {
+  setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true");
+});
+
+siteNav.addEventListener("click", (event) => {
+  if (event.target.closest("a")) setMenuOpen(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
+    setMenuOpen(false);
+    menuToggle.focus();
+  }
+});
+
+window.matchMedia("(min-width: 769px)").addEventListener("change", (event) => {
+  if (event.matches) setMenuOpen(false);
+});
+
 const initialLanguage = localStorage.getItem(LANGUAGE_KEY) || "en";
 languageSelect.value = initialLanguage;
+currentLanguage = initialLanguage;
 applyLanguage(initialLanguage);
+setMenuOpen(false);
 
 document.querySelector(".theme-toggle").addEventListener("click", () => {
   applyTheme(
@@ -672,5 +716,7 @@ document.querySelector(".theme-toggle").addEventListener("click", () => {
 languageSelect.addEventListener("change", (event) => {
   const language = event.target.value;
   localStorage.setItem(LANGUAGE_KEY, language);
+  currentLanguage = language;
   applyLanguage(language);
+  setMenuOpen(menuToggle.getAttribute("aria-expanded") === "true");
 });

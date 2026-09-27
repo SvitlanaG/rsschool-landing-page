@@ -17,9 +17,11 @@ module.exports = {
     assetModuleFilename: "assets/[name].[contenthash][ext]",
   },
   devServer: {
-    static: path.resolve(__dirname, "dist"),
-    open: true,
-    port: 8080,
+    static: {
+      directory: path.resolve(__dirname, "dist"),
+    },
+    open: ["/rsschool-landing-page/"],
+    port: "auto",
   },
   module: {
     rules: [
