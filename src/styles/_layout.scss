@@ -312,10 +312,14 @@ h1 {
 }
 .exercise-carousel__track {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
+  min-width: 0;
+  overflow: hidden;
 }
 .exercise-card {
+  display: none;
+  grid-area: 1 / 1;
+  width: min(100%, 42rem);
+  justify-self: center;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 1rem;
@@ -324,6 +328,33 @@ h1 {
   transition:
     transform 180ms ease,
     box-shadow 180ms ease;
+}
+.exercise-card.is-active {
+  display: block;
+}
+.exercise-card.slide-from-next {
+  animation: exercise-slide-from-next 280ms ease-out;
+}
+.exercise-card.slide-from-previous {
+  animation: exercise-slide-from-previous 280ms ease-out;
+}
+@keyframes exercise-slide-from-next {
+  from { opacity: 0.35; transform: translateX(1.5rem); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes exercise-slide-from-previous {
+  from { opacity: 0.35; transform: translateX(-1.5rem); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .exercise-card.slide-from-next,
+  .exercise-card.slide-from-previous,
+  .carousel-progress button.is-active::after {
+    animation: none;
+  }
+  .carousel-progress button.is-active::after {
+    transform: scaleX(1);
+  }
 }
 .exercise-card:hover {
   transform: translateY(-0.35rem);
@@ -393,16 +424,37 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 2rem;
+  margin-top: 0.75rem;
 }
-.carousel-progress span {
+.carousel-progress button {
+  position: relative;
   width: 2.5rem;
-  height: 0.2rem;
+  height: 0.35rem;
+  overflow: hidden;
+  border: 0;
   border-radius: 2rem;
+  padding: 0;
   background: var(--line);
+  cursor: pointer;
 }
-.carousel-progress .is-active {
+.carousel-progress button::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   background: var(--accent);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.carousel-progress button.is-active::after {
+  animation: carousel-progress-fill 6s linear forwards;
+}
+@keyframes carousel-progress-fill {
+  to { transform: scaleX(1); }
+}
+.carousel-progress button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .habits {
@@ -755,14 +807,15 @@ h1 {
     margin-top: 1rem;
   }
   .exercise-carousel {
-    display: block;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.5rem;
   }
   .exercise-carousel__track {
-    grid-template-columns: repeat(3, minmax(15rem, 1fr));
-    overflow: hidden;
+    min-width: 0;
   }
   .carousel-button {
-    display: none;
+    width: 2.4rem;
+    height: 2.4rem;
   }
 
   .habits {
@@ -841,12 +894,6 @@ h1 {
 
   .featured {
     width: min(100% - 2rem, 76rem);
-  }
-  .exercise-carousel__track {
-    grid-template-columns: 1fr;
-  }
-  .exercise-card:not(:first-child) {
-    display: none;
   }
 
   .habits {

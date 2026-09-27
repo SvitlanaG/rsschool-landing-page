@@ -15,6 +15,9 @@ const labels = {
     habits: "Healthy habits",
     about: "How it works",
     catalog: "Catalog",
+    previousExercise: "Previous exercise",
+    nextExercise: "Next exercise",
+    showExercise: "Show exercise",
     menuOpen: "Open navigation menu",
     menuClose: "Close navigation menu",
     theme: "Toggle color theme",
@@ -36,7 +39,10 @@ const labels = {
     habits: "Gesunde Gewohnheiten",
     about: "So funktioniert es",
     catalog: "Katalog",
-    menuOpen: "Navigation offnen",
+    previousExercise: "Vorherige Übung",
+    nextExercise: "Nächste Übung",
+    showExercise: "Übung anzeigen",
+    menuOpen: "Navigation öffnen",
     menuClose: "Navigation schließen",
     theme: "Farbschema wechseln",
     language: "Sprache",
@@ -59,6 +65,9 @@ const labels = {
     habits: "Здорові звички",
     about: "Як це працює",
     catalog: "Каталог",
+    previousExercise: "Попередня вправа",
+    nextExercise: "Наступна вправа",
+    showExercise: "Показати вправу",
     menuOpen: "Відкрити меню навігації",
     menuClose: "Закрити меню навігації",
     theme: "Змінити кольорову тему",
@@ -82,6 +91,9 @@ const labels = {
     habits: "Здоровые привычки",
     about: "Как это работает",
     catalog: "Каталог",
+    previousExercise: "Предыдущее упражнение",
+    nextExercise: "Следующее упражнение",
+    showExercise: "Показать упражнение",
     menuOpen: "Открыть меню навигации",
     menuClose: "Закрыть меню навигации",
     theme: "Переключить тему",
@@ -580,16 +592,20 @@ function pageContent() {
             <div><p class="eyebrow" data-label="featuredEyebrow">Start here</p><h2 id="featured-title" data-label="featuredTitle">Three breaks worth making time for.</h2></div>
             <p data-label="featuredText">Choose a small reset that meets you where your body is today.</p>
           </div>
-          <div class="exercise-carousel" aria-label="Featured exercises">
-            <button class="carousel-button" type="button" aria-label="Previous exercise" disabled>←</button>
-            <div class="exercise-carousel__track">
-              <article class="exercise-card"><img src="${heroImageShoulder}" alt="Desk worker stretching their shoulders" /><div><p data-label="stretchTime">02 min</p><h3 data-label="stretchTitle">Seated shoulder reset</h3><span data-label="stretchText">Release upper-body tension without leaving your chair.</span></div></article>
-              <article class="exercise-card"><img src="${heroImageDistance}" alt="Desk worker taking an eye break" /><div><p data-label="eyeTime">01 min</p><h3 data-label="eyeTitle">20-second distance gaze</h3><span data-label="eyeText">Give focused eyes a brief change of scenery.</span></div></article>
-              <article class="exercise-card"><img src="${heroImageFingerFlow}" alt="Desk worker resting their hands" /><div><p data-label="wristTime">03 min</p><h3 data-label="wristTitle">Wrist and finger flow</h3><span data-label="wristText">Ease the small muscles that work alongside your keyboard.</span></div></article>
+          <div class="exercise-carousel" role="region" aria-roledescription="carousel" aria-label="Featured exercises">
+            <button class="carousel-button" type="button" data-carousel-direction="previous" aria-label="Previous exercise" aria-controls="featured-exercises-track">←</button>
+            <div class="exercise-carousel__track" id="featured-exercises-track" aria-live="polite">
+              <article class="exercise-card is-active" aria-hidden="false"><img src="${heroImageShoulder}" alt="Desk worker stretching their shoulders" /><div><p data-label="stretchTime">02 min</p><h3 data-label="stretchTitle">Seated shoulder reset</h3><span data-label="stretchText">Release upper-body tension without leaving your chair.</span></div></article>
+              <article class="exercise-card" aria-hidden="true"><img src="${heroImageDistance}" alt="Desk worker taking an eye break" /><div><p data-label="eyeTime">01 min</p><h3 data-label="eyeTitle">20-second distance gaze</h3><span data-label="eyeText">Give focused eyes a brief change of scenery.</span></div></article>
+              <article class="exercise-card" aria-hidden="true"><img src="${heroImageFingerFlow}" alt="Desk worker resting their hands" /><div><p data-label="wristTime">03 min</p><h3 data-label="wristTitle">Wrist and finger flow</h3><span data-label="wristText">Ease the small muscles that work alongside your keyboard.</span></div></article>
             </div>
-            <button class="carousel-button" type="button" aria-label="Next exercise">→</button>
+            <button class="carousel-button" type="button" data-carousel-direction="next" aria-label="Next exercise" aria-controls="featured-exercises-track">→</button>
           </div>
-          <div class="carousel-progress" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
+          <div class="carousel-progress" aria-label="Choose an exercise">
+            <button class="is-active" type="button" aria-current="true" aria-label="Show exercise 1" aria-controls="featured-exercises-track"></button>
+            <button type="button" aria-current="false" aria-label="Show exercise 2" aria-controls="featured-exercises-track"></button>
+            <button type="button" aria-current="false" aria-label="Show exercise 3" aria-controls="featured-exercises-track"></button>
+          </div>
         </section>
         <section class="habits" id="habits" aria-labelledby="habits-title">
           <div class="habits__intro">
@@ -707,6 +723,102 @@ currentLanguage = initialLanguage;
 applyLanguage(initialLanguage);
 setMenuOpen(false);
 
+function setupExerciseCarousel() {
+  const carousel = document.querySelector(".exercise-carousel");
+  if (!carousel) return null;
+
+  const slides = [...carousel.querySelectorAll(".exercise-card")];
+  const progressButtons = [...document.querySelectorAll(".carousel-progress button")];
+  const previousButton = carousel.querySelector('[data-carousel-direction="previous"]');
+  const nextButton = carousel.querySelector('[data-carousel-direction="next"]');
+  let activeIndex = 0;
+  let rotationTimer;
+  let animationTimer;
+
+  function updateCarouselLabels(language) {
+    previousButton.setAttribute("aria-label", labels[language].previousExercise);
+    nextButton.setAttribute("aria-label", labels[language].nextExercise);
+    progressButtons.forEach((button, index) => {
+      button.setAttribute("aria-label", `${labels[language].showExercise} ${index + 1}`);
+    });
+  }
+
+  function showSlide(nextIndex, direction) {
+    if (nextIndex === activeIndex) return;
+
+    window.clearTimeout(animationTimer);
+    const currentSlide = slides[activeIndex];
+    const nextSlide = slides[nextIndex];
+    currentSlide.classList.remove("is-active", "slide-from-next", "slide-from-previous");
+    currentSlide.setAttribute("aria-hidden", "true");
+    nextSlide.classList.add("is-active", direction === "next" ? "slide-from-next" : "slide-from-previous");
+    nextSlide.setAttribute("aria-hidden", "false");
+    activeIndex = nextIndex;
+
+    progressButtons.forEach((button, index) => {
+      const isActive = index === activeIndex;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-current", String(isActive));
+    });
+
+    animationTimer = window.setTimeout(() => {
+      nextSlide.classList.remove("slide-from-next", "slide-from-previous");
+    }, 320);
+  }
+
+  function showNext() {
+    showSlide((activeIndex + 1) % slides.length, "next");
+  }
+
+  function showPrevious() {
+    showSlide((activeIndex - 1 + slides.length) % slides.length, "previous");
+  }
+
+  function stopRotation() {
+    window.clearInterval(rotationTimer);
+    rotationTimer = undefined;
+  }
+
+  function startRotation() {
+    stopRotation();
+    const activeProgress = progressButtons[activeIndex];
+    activeProgress.classList.remove("is-active");
+    void activeProgress.offsetWidth;
+    activeProgress.classList.add("is-active");
+    if (!document.hidden) {
+      rotationTimer = window.setInterval(showNext, 6000);
+    }
+  }
+
+  previousButton.addEventListener("click", () => {
+    showPrevious();
+    startRotation();
+  });
+  nextButton.addEventListener("click", () => {
+    showNext();
+    startRotation();
+  });
+  progressButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      showSlide(index, index > activeIndex ? "next" : "previous");
+      startRotation();
+    });
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stopRotation();
+    else startRotation();
+  });
+
+  return { updateCarouselLabels, startRotation };
+}
+
+const exerciseCarousel = setupExerciseCarousel();
+if (exerciseCarousel) {
+  exerciseCarousel.updateCarouselLabels(initialLanguage);
+  exerciseCarousel.startRotation();
+}
+
 document.querySelector(".theme-toggle").addEventListener("click", () => {
   applyTheme(
     document.documentElement.dataset.theme === "dark" ? "light" : "dark",
@@ -718,5 +830,6 @@ languageSelect.addEventListener("change", (event) => {
   localStorage.setItem(LANGUAGE_KEY, language);
   currentLanguage = language;
   applyLanguage(language);
+  if (exerciseCarousel) exerciseCarousel.updateCarouselLabels(language);
   setMenuOpen(menuToggle.getAttribute("aria-expanded") === "true");
 });
